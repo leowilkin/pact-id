@@ -86,11 +86,13 @@ Description=PaCT ID Twilio Flask App
 After=network.target
 
 [Service]
-User=root
+User=www-data
 WorkingDirectory=/opt/twilio
-EnvironmentFile=/opt/twilio/.env
-ExecStart=/opt/twilio/venv/bin/python /opt/twilio/bridge.py
+ExecStart=/opt/twilio/bin/python /opt/twilio/bridge.py
 Restart=always
+EnvironmentFile=/opt/twilio/.env
+StandardOutput=journal
+StandardError=journal
 
 [Install]
 WantedBy=multi-user.target
@@ -133,3 +135,10 @@ These should be set as the Voice & Fax > A Call Comes In handler (Webhook + TwiM
 
 Head on over to [leowilkin/pactid-pwa](github.com/leowilkin/pactid-pwa) to find out more.
 
+## View Logs
+
+To view the access logs for the service, on your terminal do:
+
+```bash
+journalctl -u twilio.service -f
+```
