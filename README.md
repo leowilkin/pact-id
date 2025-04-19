@@ -139,7 +139,7 @@ These should be set as the Voice & Fax > A Call Comes In handler (Webhook + TwiM
 
 ## 📱 Using the PWA Dialler
 
-Head on over to [leowilkin/pactid-pwa](github.com/leowilkin/pactid-pwa) to find out more.
+Head on over to [leowilkin/pactid-pwa](github.com/leowilkin/pactid-pwa) to find out more - currently a WIP.
 
 ## View Logs
 
@@ -159,10 +159,34 @@ https://thetestcall.blogspot.com/
 
 Find a friend!
 
-## What does PaCT ID stand for, Leo?
+## Extra Features!
 
-Probably Cheaper To Internationally Dial
+Set your MOTD to a custom Linux PaCT ID message so you can remember all those commands easily!
 
-Ironically, it's actually much cheaper. From 'research', Leo found that it costs like £0.025 per minute going from a UK -> US, and his data plan is like £0.13 a minute, so _big savings_.
+Simply:
 
-Someone's probably going to reverse engineer my server and find all my numbers, so it'll end out to be more expensive when they f me with twilio bills.
+```bash
+nano /etc/motd
+```
+and paste:
+```
+👋 You're logged into $(hostname), your PaCT ID server!
+
+Useful commands:
+
+- systemctl stop twilio
+- systemctl start twilio && journalctl -u twilio.service -f
+- systemctl status twilio
+- nano /opt/twilio/bridge.py
+
+Fully reload & restart?
+
+1. sudo systemctl daemon-reexec
+2. sudo systemctl daemon-reload
+3. sudo systemctl restart twilio.service
+
+
+Want to re-enable the default MOTD? https://gist.github.com/leowilkin/483f3968681a78f4f8eabf11228209f0
+```
+
+simples 🤌
