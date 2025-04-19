@@ -2,6 +2,18 @@
 
 **PaCT ID** is a Twilio-powered local-to-international calling bridge. It allows you to call and receive calls across borders using local Twilio numbers while preserving caller IDs — with a handy PWA frontend for mobile dialing.
 
+
+
+<details>
+<summary>What does PaCT ID stand for?</summary>
+
+**P**robably **C**heaper **T**o **I**nternationally **D**ial
+
+Ironically, it's actually much cheaper. From 'research', Leo found that it costs like £0.025 per minute going from a UK -> US, and his data plan is like £0.13 a minute, so _big savings_.
+
+Someone's probably going to reverse engineer my server and find all my numbers, so it'll end out to be more expensive when they f me with twilio bills.
+</details>
+
 ---
 
 ## 🌍 How It Works
