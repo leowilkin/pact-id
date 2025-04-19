@@ -89,5 +89,10 @@ def handle_uk_dial():
         response.say("Invalid number.")
     return Response(str(response), mimetype="application/xml")
 
+@app.route("/status", methods=["GET"])
+def status():
+    return "OK", 200
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
