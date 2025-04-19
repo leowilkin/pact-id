@@ -42,7 +42,7 @@ def voice_us():
     if ENABLE_US_PERSONAL_ROUTING and caller == PERSONAL_US:
         logger.info("🔐 US personal number - waiting for digits")
         gather = Gather(input="dtmf", finish_on_key="#", action="/handle_us_dial", method="POST")
-        gather.say("Who do you want to call? Enter the full number, then press pound.")
+        gather.say("Who do you want to call? Enter the full number, then press hash.")
         response.append(gather)
         response.say("We didn't receive any input.")
     else:
@@ -67,7 +67,7 @@ def voice_uk():
     if caller == PERSONAL_UK:
         logger.info("🔐 UK personal number - waiting for digits")
         gather = Gather(input="dtmf", finish_on_key="#", action="/handle_uk_dial", method="POST")
-        gather.say("Who do you want to call? Enter the full number, then press pound.")
+        gather.say("Who do you want to call? Enter the full number, then press hash.")
         response.append(gather)
         response.say("We didn't receive any input.")
     else:
