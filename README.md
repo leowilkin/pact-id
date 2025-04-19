@@ -113,7 +113,7 @@ sudo systemctl start twilio
 4. Debian > 64-bit
 5. Copy and paste the install code into your terminal
 6. Once completed, copy and paste the activation code into your terminal
-7. Next > configure public hostname, and save
+7. Next > configure public hostname as twilio.yourdomain.com, and save
 
 ## 🔁 Configure Twilio Webhooks
 
