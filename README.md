@@ -60,17 +60,7 @@ pip install -r requirements.txt
 nano .env
 ```
 
-Example:
-
-```env
-US_TWILIO_NUMBER=+18012345678
-UK_TWILIO_NUMBER=+447123456789
-PERSONAL_UK=+447123456789
-PERSONAL_US=+18012345678
-
-# Optional feature flag
-ENABLE_US_PERSONAL_ROUTING=true
-```
+[See example](https://github.com/leowilkin/pactid/blob/main/.env.example)
 
 ### 4. Create systemd Service
 
@@ -156,3 +146,11 @@ https://thetestcall.blogspot.com/
 ### Inbound
 
 Find a friend!
+
+## What does PaCT ID stand for, Leo?
+
+Probably Cheaper To Internationally Dial
+
+Ironically, it's actually much cheaper. From 'research', Leo found that it costs like £0.025 per minute going from a UK -> US, and his data plan is like £0.13 a minute, so _big savings_.
+
+Someone's probably going to reverse engineer my server and find all my numbers, so it'll end out to be more expensive when they f me with twilio bills.
