@@ -93,6 +93,6 @@ def handle_uk_dial():
 def status():
     return "OK", 200
 
-
+#doesn't actually do sh1t when you're using gunicorn :3
 if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+    app.run(debug=False, port=8080)
