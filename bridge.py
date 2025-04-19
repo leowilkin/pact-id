@@ -1,6 +1,7 @@
 from flask import Flask, request, Response
 from twilio.twiml.voice_response import VoiceResponse, Gather
 import os
+import re
 
 app = Flask(__name__)
 
@@ -11,7 +12,6 @@ PERSONAL_UK = os.getenv("PERSONAL_UK")            # e.g., +447123456789
 PERSONAL_US = os.getenv("PERSONAL_US")            # e.g., +18123456789
 # ignore this :)
 ENABLE_US_PERSONAL_ROUTING = os.getenv("ENABLE_US_PERSONAL_ROUTING", "false").lower() == "true"
-
 
 def normalize_number(raw):
     raw = raw.replace(" ", "")
@@ -28,40 +28,40 @@ def normalize_number(raw):
 @app.route("/voice_us", methods=["POST"])
 def voice_us():
     caller = request.form.get("From")
+    print(f"📞 Incoming US call from {caller}")
     response = VoiceResponse()
 
     if ENABLE_US_PERSONAL_ROUTING and caller == PERSONAL_US:
         gather = Gather(input="dtmf", finish_on_key="#", action="/handle_us_dial", method="POST")
-        gather.say("Who do you want to call? Enter the full number, then press hash.")
+        gather.say("Who do you want to call? Enter the full number, then press pound.")
         response.append(gather)
         response.say("We didn't receive any input.")
     else:
+        print(f"🔁 Forwarding US call to UK Twilio: {UK_TWILIO_NUMBER} (Caller ID: {caller})")
         response.dial(UK_TWILIO_NUMBER, caller_id=caller)
 
     return Response(str(response), mimetype="application/xml")
 
 @app.route("/handle_us_dial", methods=["POST"])
 def handle_us_dial():
-    digits = request.form.get("Digits")
+    print("🚫 US personal outbound dialing attempted (disabled).")
     response = VoiceResponse()
-    if ENABLE_US_PERSONAL_ROUTING and digits:
-        to_number = normalize_number(digits)
-        response.dial(to_number, caller_id=PERSONAL_UK)
-    else:
-        response.say("Outbound calling from US is currently disabled.")
+    response.say("Outbound calling from US is currently disabled.")
     return Response(str(response), mimetype="application/xml")
 
 @app.route("/voice_uk", methods=["POST"])
 def voice_uk():
     caller = request.form.get("From")
+    print(f"📞 Incoming UK call from {caller}")
     response = VoiceResponse()
 
     if caller == PERSONAL_UK:
         gather = Gather(input="dtmf", finish_on_key="#", action="/handle_uk_dial", method="POST")
-        gather.say("Who do you want to call? Enter the full number, then press hash.")
+        gather.say("Who do you want to call? Enter the full number, then press pound.")
         response.append(gather)
         response.say("We didn't receive any input.")
     else:
+        print(f"🔁 Forwarding UK call to US Twilio: {US_TWILIO_NUMBER} (Caller ID: {caller})")
         response.dial(US_TWILIO_NUMBER, caller_id=caller)
 
     return Response(str(response), mimetype="application/xml")
@@ -72,8 +72,10 @@ def handle_uk_dial():
     response = VoiceResponse()
     if digits:
         to_number = normalize_number(digits)
+        print(f"📤 Outbound call from UK personal to {to_number}")
         response.dial(to_number, caller_id=PERSONAL_UK)
     else:
+        print("⚠️ No number entered for UK personal outbound dial.")
         response.say("Invalid number.")
     return Response(str(response), mimetype="application/xml")
 
