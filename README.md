@@ -142,3 +142,13 @@ To view the access logs for the service, on your terminal do:
 ```bash
 journalctl -u twilio.service -f
 ```
+
+## Testing
+
+### Outbound
+
+https://thetestcall.blogspot.com/
+
+### Inbound
+
+Find a friend!
