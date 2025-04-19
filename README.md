@@ -78,27 +78,13 @@ ENABLE_US_PERSONAL_ROUTING=true
 sudo nano /etc/systemd/system/twilio.service
 ```
 
-Paste:
+<details>
+<summary>In development</summary>
 
-```ini
-[Unit]
-Description=PaCT ID Twilio Flask App
-After=network.target
 
-[Service]
-User=www-data
-WorkingDirectory=/opt/twilio
-ExecStart=/opt/twilio/bin/python /opt/twilio/bridge.py
-Restart=always
-EnvironmentFile=/opt/twilio/.env
-StandardOutput=journal
-StandardError=journal
+In that crispy new file, paste [this weird ass code](https://github.com/leowilkin/pactid/blob/main/systemd/python.ini) in, and apparently it makes it run automatically which is pretty neat.
 
-[Install]
-WantedBy=multi-user.target
-```
-
-Then:
+Then hit it with an enable & start
 
 ```bash
 sudo systemctl daemon-reexec
@@ -106,6 +92,24 @@ sudo systemctl daemon-reload
 sudo systemctl enable twilio
 sudo systemctl start twilio
 ```
+</details>
+
+<details>
+<summary>In production</summary>
+
+
+"Apparently" using Flask servers in prod isn't such a good idea, so when you're running it for realsies, use [this systemd file](https://github.com/leowilkin/pactid/blob/main/systemd/gunicorn.ini)
+
+Then hit it with an refresh
+
+```bash
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+sudo systemctl refresh twilio
+```
+</details>
+
+
 
 ## 🌐 Configure Cloudflare Tunnel
 
