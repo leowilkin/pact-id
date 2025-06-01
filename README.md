@@ -5,6 +5,7 @@
 
 
 <details>
+
 <summary>What does PaCT ID stand for?</summary>
 
 **P**robably **C**heaper **T**o **I**nternationally **D**ial
@@ -23,8 +24,8 @@ Someone's probably going to reverse engineer my server and find all my numbers, 
   - If someone calls your **UK Twilio number**, it's forwarded to your **US personal number** via your **US Twilio number**, showing the original UK caller ID.
 
 - **Outbound Calls from You**  
-  - If *you* call the **UK Twilio number**, you're prompted to enter a number (e.g., a US number), and it connects using your **US Twilio number**, showing your personal UK number as caller ID.
-  - If *you* call the **US Twilio number**, you're prompted to enter a number (e.g., a UK number), and it connects using your **UK Twilio number**, showing your personal US number as caller ID.
+  - If _you_ call the **UK Twilio number**, you're prompted to enter a number (e.g., a US number) [then press hash], and it connects using your **US Twilio number**, showing your personal UK number as caller ID.
+  - If _you_ call the **US Twilio number**, you're prompted to enter a number (e.g., a UK number) [then press hash], and it connects using your **UK Twilio number**, showing your personal US number as caller ID.
 
 ---
 
@@ -168,8 +169,10 @@ Simply:
 ```bash
 nano /etc/motd
 ```
+
 and paste:
-```
+
+```bash
 👋 You're logged into $(hostname), your PaCT ID server!
 
 Useful commands:
