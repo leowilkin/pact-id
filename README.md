@@ -2,6 +2,11 @@
 
 **PaCT ID** is a Twilio-powered local-to-international calling bridge. It allows you to call and receive calls across borders using local Twilio numbers while preserving caller IDs — with a handy PWA frontend for mobile dialing.
 
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/leowilkin/pact-id/python.yml)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/leowilkin/pact-id/latest)
+![Website](https://img.shields.io/website?url=https%3A%2F%2Ftwilio.alphabetise.xyz%2Fstatus)
+![GitHub Repo stars](https://img.shields.io/github/stars/leowilkin/pact-id)
+
 
 
 <details>
