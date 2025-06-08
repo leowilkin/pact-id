@@ -14,6 +14,9 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# bit too much chat from twilio, so only show warnings
+logging.getLogger("twilio.http_client").setLevel(logging.WARNING)
+
 # configure this in your .env file!
 US_TWILIO_NUMBER = os.getenv("US_TWILIO_NUMBER")  # e.g., +18123456789
 UK_TWILIO_NUMBER = os.getenv("UK_TWILIO_NUMBER")  # e.g., +447123456789
