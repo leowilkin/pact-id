@@ -128,6 +128,35 @@ def handle_uk_dial():
         response.say("Invalid number.")
     return Response(str(response), mimetype="application/xml")
 
+# handles incoming SMS messages and forwards them to PERSONAL_UK
+@app.route("/text", methods=["POST"])
+def text():
+    sender = request.form.get("From")
+    message_body = request.form.get("Body", "")
+    
+    logger.info(f"💬 Incoming SMS from {sender}: {message_body}")
+    
+    if twilio_client and PERSONAL_UK:
+        try:
+            # Format the message with sender info
+            formatted_message = f"{message_body}\n🗨️ via PACT ID from {sender}"
+            
+            # Forward the SMS to personal UK number
+            forwarded_message = twilio_client.messages.create(
+                body=formatted_message,
+                from_=UK_TWILIO_NUMBER,
+                to=PERSONAL_UK
+            )
+            logger.info(f"✅ SMS forwarded to {PERSONAL_UK}: {forwarded_message.sid}")
+            
+        except Exception as e:
+            logger.error(f"🚫 Failed to forward SMS: {e}")
+    else:
+        logger.warning("🚫 Cannot forward SMS - Twilio client not initialized or PERSONAL_UK not set")
+    
+    # Return empty TwiML response (no reply to sender)
+    return Response("", mimetype="application/xml")
+
 # this is what betterstack pings to check if it's still alive. so far it has 100% uptime, apart from when I kill it >:)
 @app.route("/status", methods=["GET"])
 def status():
